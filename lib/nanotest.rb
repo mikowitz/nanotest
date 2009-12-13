@@ -7,15 +7,15 @@ module Nanotest
     unless block.call
       file ||= caller.first.split(':')[0]
       line ||= caller.first.split(':')[1]
-      add_failure(file, line, msg)
+      self.add_failure(file, line, msg)
     else
       @@dots << '.'
     end
   rescue Exception => e
-    add_failure(file, line, e.message)
+    self.add_failure(file, line, e.message)
   end
 
-  def self.add_failure(file, line, message) #:nodoc:
+  def add_failure(file, line, message) #:nodoc:
     @@failures << "(%s:%0.3d) %s" % [file, line, message]
     @@dots << 'F'
   end
